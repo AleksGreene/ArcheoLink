@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1f462d4ed38d464297c51ac4fd597c9f" Name="Diagram1">
+        <EntityTypeShape EntityType="BaseModel.Area" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BaseModel.Link" Width="1.5" PointX="2.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BaseModel.Other" Width="1.5" PointX="4" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BaseModel.Period" Width="1.5" PointX="2.25" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="BaseModel.CpecificationArea" ManuallyRouted="false" />
+        <AssociationConnector Association="BaseModel.CpecificationOther" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="BaseModel.CpecificationPeriod" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

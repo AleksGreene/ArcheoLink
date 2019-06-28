@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "C:\USERS\ПК\DESKTOP\АРХЕОЛОГИЯ\АРХЕОЛОГИЯ\BASE.MDF.dbo.CpecificationArea" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="CpecificationArea">
+          <Key>
+            <PropertyRef Name="IdLink" />
+            <PropertyRef Name="IdArea" />
+          </Key>
+          <Property Name="IdLink" Type="int" Nullable="false" />
+          <Property Name="IdArea" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "C:\USERS\ПК\DESKTOP\АРХЕОЛОГИЯ\АРХЕОЛОГИЯ\BASE.MDF.dbo.CpecificationOther" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="CpecificationOther">
+          <Key>
+            <PropertyRef Name="IdLink" />
+            <PropertyRef Name="IdOther" />
+          </Key>
+          <Property Name="IdLink" Type="int" Nullable="false" />
+          <Property Name="IdOther" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "C:\USERS\ПК\DESKTOP\АРХЕОЛОГИЯ\АРХЕОЛОГИЯ\BASE.MDF.dbo.CpecificationPeriod" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="CpecificationPeriod">
+          <Key>
+            <PropertyRef Name="IdLink" />
+            <PropertyRef Name="IdPeriod" />
+          </Key>
+          <Property Name="IdLink" Type="int" Nullable="false" />
+          <Property Name="IdPeriod" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Link">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Tags" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Properties" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Other">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Period">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CpecArea_ToArea">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="CpecificationArea" Type="Self.CpecificationArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CpecificationArea">
+              <PropertyRef Name="IdArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CpecArea_ToLink">
+          <End Role="Link" Type="Self.Link" Multiplicity="1" />
+          <End Role="CpecificationArea" Type="Self.CpecificationArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Link">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CpecificationArea">
+              <PropertyRef Name="IdLink" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CpecOther_ToLink">
+          <End Role="Link" Type="Self.Link" Multiplicity="1" />
+          <End Role="CpecificationOther" Type="Self.CpecificationOther" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Link">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CpecificationOther">
+              <PropertyRef Name="IdLink" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CpecOther_ToPeriod">
+          <End Role="Other" Type="Self.Other" Multiplicity="1" />
+          <End Role="CpecificationOther" Type="Self.CpecificationOther" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Other">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CpecificationOther">
+              <PropertyRef Name="IdOther" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CpecPeriod_ToLink">
+          <End Role="Link" Type="Self.Link" Multiplicity="1" />
+          <End Role="CpecificationPeriod" Type="Self.CpecificationPeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Link">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CpecificationPeriod">
+              <PropertyRef Name="IdLink" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CpecPeriod_ToPeriod">
+          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+          <End Role="CpecificationPeriod" Type="Self.CpecificationPeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Period">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CpecificationPeriod">
+              <PropertyRef Name="IdPeriod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BaseModelContainer">
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Link" EntityType="Self.Link" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Other" EntityType="Self.Other" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Period" EntityType="Self.Period" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CpecificationArea" EntityType="Self.CpecificationArea" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CpecificationArea].[IdLink] AS [IdLink], 
+    [CpecificationArea].[IdArea] AS [IdArea]
+    FROM [dbo].[CpecificationArea] AS [CpecificationArea]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CpecificationOther" EntityType="Self.CpecificationOther" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CpecificationOther].[IdLink] AS [IdLink], 
+    [CpecificationOther].[IdOther] AS [IdOther]
+    FROM [dbo].[CpecificationOther] AS [CpecificationOther]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CpecificationPeriod" EntityType="Self.CpecificationPeriod" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CpecificationPeriod].[IdLink] AS [IdLink], 
+    [CpecificationPeriod].[IdPeriod] AS [IdPeriod]
+    FROM [dbo].[CpecificationPeriod] AS [CpecificationPeriod]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CpecArea_ToArea" Association="Self.FK_CpecArea_ToArea">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="CpecificationArea" EntitySet="CpecificationArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CpecArea_ToLink" Association="Self.FK_CpecArea_ToLink">
+            <End Role="Link" EntitySet="Link" />
+            <End Role="CpecificationArea" EntitySet="CpecificationArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CpecOther_ToLink" Association="Self.FK_CpecOther_ToLink">
+            <End Role="Link" EntitySet="Link" />
+            <End Role="CpecificationOther" EntitySet="CpecificationOther" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CpecOther_ToPeriod" Association="Self.FK_CpecOther_ToPeriod">
+            <End Role="Other" EntitySet="Other" />
+            <End Role="CpecificationOther" EntitySet="CpecificationOther" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CpecPeriod_ToLink" Association="Self.FK_CpecPeriod_ToLink">
+            <End Role="Link" EntitySet="Link" />
+            <End Role="CpecificationPeriod" EntitySet="CpecificationPeriod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CpecPeriod_ToPeriod" Association="Self.FK_CpecPeriod_ToPeriod">
+            <End Role="Period" EntitySet="Period" />
+            <End Role="CpecificationPeriod" EntitySet="CpecificationPeriod" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Link" Relationship="Self.CpecificationArea" FromRole="Area" ToRole="Link" />
+        </EntityType>
+        <EntityType Name="Link">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Link1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Properties" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Area" Relationship="Self.CpecificationArea" FromRole="Link" ToRole="Area" />
+          <NavigationProperty Name="Other" Relationship="Self.CpecificationOther" FromRole="Link" ToRole="Other" />
+          <NavigationProperty Name="Period" Relationship="Self.CpecificationPeriod" FromRole="Link" ToRole="Period" />
+        </EntityType>
+        <EntityType Name="Other">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Link" Relationship="Self.CpecificationOther" FromRole="Other" ToRole="Link" />
+        </EntityType>
+        <EntityType Name="Period">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Link" Relationship="Self.CpecificationPeriod" FromRole="Period" ToRole="Link" />
+        </EntityType>
+        <Association Name="CpecificationArea">
+          <End Role="Area" Type="Self.Area" Multiplicity="*" />
+          <End Role="Link" Type="Self.Link" Multiplicity="*" />
+        </Association>
+        <Association Name="CpecificationOther">
+          <End Role="Link" Type="Self.Link" Multiplicity="*" />
+          <End Role="Other" Type="Self.Other" Multiplicity="*" />
+        </Association>
+        <Association Name="CpecificationPeriod">
+          <End Role="Link" Type="Self.Link" Multiplicity="*" />
+          <End Role="Period" Type="Self.Period" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Area" EntityType="Self.Area" />
+          <EntitySet Name="Link" EntityType="Self.Link" />
+          <EntitySet Name="Other" EntityType="Self.Other" />
+          <EntitySet Name="Period" EntityType="Self.Period" />
+          <AssociationSet Name="CpecificationArea" Association="Self.CpecificationArea">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Link" EntitySet="Link" />
+          </AssociationSet>
+          <AssociationSet Name="CpecificationOther" Association="Self.CpecificationOther">
+            <End Role="Link" EntitySet="Link" />
+            <End Role="Other" EntitySet="Other" />
+          </AssociationSet>
+          <AssociationSet Name="CpecificationPeriod" Association="Self.CpecificationPeriod">
+            <End Role="Link" EntitySet="Link" />
+            <End Role="Period" EntitySet="Period" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BaseModelContainer" CdmEntityContainer="BaseEntities">
+          <EntitySetMapping Name="Area">
+            <EntityTypeMapping TypeName="BaseModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Link">
+            <EntityTypeMapping TypeName="BaseModel.Link">
+              <MappingFragment StoreEntitySet="Link">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Link1" ColumnName="Link" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Properties" ColumnName="Properties" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Other">
+            <EntityTypeMapping TypeName="BaseModel.Other">
+              <MappingFragment StoreEntitySet="Other">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Period">
+            <EntityTypeMapping TypeName="BaseModel.Period">
+              <MappingFragment StoreEntitySet="Period">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CpecificationArea" TypeName="BaseModel.CpecificationArea" StoreEntitySet="CpecificationArea">
+            <EndProperty Name="Area">
+              <ScalarProperty Name="Id" ColumnName="IdArea" />
+            </EndProperty>
+            <EndProperty Name="Link">
+              <ScalarProperty Name="Id" ColumnName="IdLink" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CpecificationOther" TypeName="BaseModel.CpecificationOther" StoreEntitySet="CpecificationOther">
+            <EndProperty Name="Link">
+              <ScalarProperty Name="Id" ColumnName="IdLink" />
+            </EndProperty>
+            <EndProperty Name="Other">
+              <ScalarProperty Name="Id" ColumnName="IdOther" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CpecificationPeriod" TypeName="BaseModel.CpecificationPeriod" StoreEntitySet="CpecificationPeriod">
+            <EndProperty Name="Link">
+              <ScalarProperty Name="Id" ColumnName="IdLink" />
+            </EndProperty>
+            <EndProperty Name="Period">
+              <ScalarProperty Name="Id" ColumnName="IdPeriod" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
